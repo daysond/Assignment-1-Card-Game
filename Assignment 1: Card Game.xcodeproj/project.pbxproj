@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED03EA5627C4856900187682 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED03EA5527C4856900187682 /* main.cpp */; };
+		ED03EA5E27C4857A00187682 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED03EA5C27C4857A00187682 /* Player.cpp */; };
+		ED03EA6127C4886000187682 /* YouthPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED03EA5F27C4886000187682 /* YouthPlayer.cpp */; };
+		ED03EA6427C48ADA00187682 /* AdultPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED03EA6227C48ADA00187682 /* AdultPlayer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +26,13 @@
 
 /* Begin PBXFileReference section */
 		ED03EA5227C4856900187682 /* Assignment 1: Card Game */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Assignment 1: Card Game"; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED03EA5527C4856900187682 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		ED03EA5C27C4857A00187682 /* Player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		ED03EA5D27C4857A00187682 /* PlayerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerBase.h; sourceTree = "<group>"; };
+		ED03EA5F27C4886000187682 /* YouthPlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = YouthPlayer.cpp; sourceTree = "<group>"; };
+		ED03EA6027C4886000187682 /* YouthPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YouthPlayer.h; sourceTree = "<group>"; };
+		ED03EA6227C48ADA00187682 /* AdultPlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AdultPlayer.cpp; sourceTree = "<group>"; };
+		ED03EA6327C48ADA00187682 /* AdultPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdultPlayer.h; sourceTree = "<group>"; };
+		ED03EA6527C48B7200187682 /* PlayerMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerMain.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +65,13 @@
 		ED03EA5427C4856900187682 /* Assignment 1: Card Game */ = {
 			isa = PBXGroup;
 			children = (
-				ED03EA5527C4856900187682 /* main.cpp */,
+				ED03EA6527C48B7200187682 /* PlayerMain.cpp */,
+				ED03EA5C27C4857A00187682 /* Player.cpp */,
+				ED03EA5D27C4857A00187682 /* PlayerBase.h */,
+				ED03EA5F27C4886000187682 /* YouthPlayer.cpp */,
+				ED03EA6027C4886000187682 /* YouthPlayer.h */,
+				ED03EA6227C48ADA00187682 /* AdultPlayer.cpp */,
+				ED03EA6327C48ADA00187682 /* AdultPlayer.h */,
 			);
 			path = "Assignment 1: Card Game";
 			sourceTree = "<group>";
@@ -119,7 +133,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED03EA5627C4856900187682 /* main.cpp in Sources */,
+				ED03EA6127C4886000187682 /* YouthPlayer.cpp in Sources */,
+				ED03EA5E27C4857A00187682 /* Player.cpp in Sources */,
+				ED03EA6427C48ADA00187682 /* AdultPlayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
