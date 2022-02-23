@@ -10,11 +10,6 @@
 
 #include <iostream>
 
-enum GameMode {
-    regular = 0,
-    highDefinition = 1
-};
-
 template<typename T>
 class PlayerBase {
     
@@ -23,28 +18,84 @@ class PlayerBase {
     int *cards; // list of dependent cards of value 1-5
     
 public:
-    PlayerBase();
-    PlayerBase(std::string);
-    PlayerBase(PlayerBase&);
+    PlayerBase() {
+        
+    }
+    PlayerBase(std::string) {
+        
+    }
+    PlayerBase(PlayerBase&) {
+        
+    }
     
-    virtual PlayerBase& operator=(PlayerBase&);
+    virtual PlayerBase& operator=(PlayerBase&) {
+        
+        return *this;
+    }
     
-    bool setName(std::string);
-    std::string getName();
+    bool setName(std::string) {
+        
+    }
+    std::string getName() {
+        
+    }
     
-    bool addDependentCards(int*);
-    bool addOneDependentCard(int&);
-    int sumDependentCards();
-    bool addCash(double);
+    bool addDependentCards(int*) {
+        return true;
+    }
+    bool addOneDependentCard(int&) {
+        return true;
+    }
+    int sumDependentCards() {
+        return 1;
+    }
+    bool addCash(double) {
+        return true;
+    }
     
-    bool operator==(PlayerBase&);
-    bool operator>(PlayerBase&);
-    bool operator<(PlayerBase&);
+    bool operator==(PlayerBase&) {
+        return true;
+    }
+    bool operator>(PlayerBase&){
+        return true;
+    }
+    bool operator<(PlayerBase&){
+        return true;
+    }
     
-    void operator>>(double);
-    void operator<<(double);
+    void operator>>(double){
+        
+    }
+    void operator<<(double){
+        
+    }
   
-    ~PlayerBase();
+    ~PlayerBase() {
+        
+    }
 };
 
 #endif /* Player_h */
+
+//PlayerBase();
+//PlayerBase(std::string);
+//PlayerBase(PlayerBase&);
+//
+//virtual PlayerBase& operator=(PlayerBase&);
+//
+//bool setName(std::string);
+//std::string getName();
+//
+//bool addDependentCards(int*);
+//bool addOneDependentCard(int&);
+//int sumDependentCards();
+//bool addCash(double);
+//
+//bool operator==(PlayerBase&);
+//bool operator>(PlayerBase&);
+//bool operator<(PlayerBase&);
+//
+//void operator>>(double);
+//void operator<<(double);
+//
+//~PlayerBase();
