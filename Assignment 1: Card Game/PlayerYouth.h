@@ -9,11 +9,12 @@
 #define YouthPlayer_h
 
 #include "PlayerBase.h"
+#include <vector>
 
 template<typename T>
-class PlayerYouth: public PlayerBase<T> {
+class PlayerYouth: public PlayerBase {
     
-    T* attachCards;
+    std::vector<T> attackCards;
     
 public:
     PlayerYouth() {

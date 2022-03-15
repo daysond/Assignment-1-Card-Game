@@ -11,9 +11,9 @@
 #include "PlayerBase.h"
 
 template<typename T>
-class PlayerAdult: public PlayerBase<T> {
+class PlayerAdult: public PlayerBase {
     
-    T* attachCards;
+    T* attackCards;
     
 public:
     

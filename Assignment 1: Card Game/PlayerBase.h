@@ -9,38 +9,66 @@
 #define Player_h
 
 #include <iostream>
-
-template<typename T>
+#include <vector>
+//template<typename T>
 class PlayerBase {
     
+protected:
     std::string name;
     double cash;
-    int *cards; // list of dependent cards of value 1-5
+    std::vector<int> dependentCards; // list of dependent cards of value 1-5
+    int numDependentCards = 0;
+    int numAttackCards = 0;
     
 public:
     PlayerBase() {
-        
+        cash = 1000;
     }
-    PlayerBase(std::string) {
-        
+    
+    PlayerBase(std::string name) {
+        this->name = name;
     }
-    PlayerBase(PlayerBase&) {
+    
+    PlayerBase(PlayerBase& player) {
+        *this = player;
         
     }
     
-    virtual PlayerBase& operator=(PlayerBase&) {
-        
+    virtual PlayerBase& operator=(PlayerBase& player) {
+        this->name = player.name;
+        this->cash = player.cash;
+        this->numDependentCards = player.numDependentCards;
+        this->numAttackCards = player.numAttackCards;
+        this->dependentCards = player.dependentCards;
         return *this;
     }
     
-    bool setName(std::string) {
-        
-    }
-    std::string getName() {
-        
+    void setName(std::string name) {
+        this->name = name;
     }
     
-    bool addDependentCards(int*) {
+    std::string getName() {
+        return name;
+    }
+    
+    bool addDependentCards(short numCards) {
+        
+//        bool ret = false;
+        
+//        this->numDependentCards = numCards;
+//
+//        if (dependentCards != nullptr) {
+//            delete [] dependentCards;
+//            dependentCards = nullptr;
+//        }
+//
+//        srand(unsigned(time(0))); // seeding
+//
+//        this->dependentCards = new int[numCards];
+//
+//        for (int i = 0; i < numCards; i++) {
+//            this->dependentCards[i] = (rand()%5)+1;
+//        }
         return true;
     }
     bool addOneDependentCard(int&) {
