@@ -11,45 +11,40 @@
 #include "PlayerBase.h"
 
 template<typename T>
-class PlayerAdult: public PlayerBase {
+class PlayerAdult: public PlayerBase<T> {
     
-    T* attackCards;
+//    std::vector<T> attackCards;
     
 public:
     
-    PlayerAdult() {
-        
-        
-    }
-    PlayerAdult(std::string) {
-        
-        
-    }
-    PlayerAdult(PlayerAdult&){
-        
+    PlayerAdult() : PlayerBase<T>()  {}
+    
+    PlayerAdult(std::string name) : PlayerBase<T>(name) {}
+    
+    PlayerAdult(const PlayerAdult& player): PlayerBase<T>(player){}
+    
+    PlayerAdult& operator=(PlayerAdult& other) {
+        PlayerBase<T>::operator=(other);
+//        attackCards = other.attackCards;
+        return *this;
         
     }
     
-    PlayerAdult& operator=(PlayerAdult&) {
-        
-        
-    }
-    
-    bool addAttackCards(T*) {
-        
-        return true;
-    }
-    
-    bool addOneAttackCards(T*) {
-        
-        return true;
-    }
-    
-    T sumAttackCards() {
-        
-        
-    }
-    
+//    bool addAttackCards(short numCards) {
+//        for (int i = 0; i < numCards; ++i) {
+//            addOneAttackCards();
+//        }
+//    }
+//
+//    bool addOneAttackCards() {
+//        srand(unsigned(time(0))); // seeding
+//        this->attackCards.push_back(T((rand()%15)+1));
+//    }
+//
+//    T sumAttackCards() {
+//        return std::accumulate(attackCards.cbegin(), attackCards.cend(), 0);
+//    }
+//
     ~PlayerAdult() {
         
     }

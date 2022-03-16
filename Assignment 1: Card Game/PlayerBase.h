@@ -10,13 +10,16 @@
 
 #include <iostream>
 #include <vector>
-//template<typename T>
+#include <numeric>
+#include <time.h>
+template<typename T>
 class PlayerBase {
     
 protected:
     std::string name;
     double cash;
     std::vector<int> dependentCards; // list of dependent cards of value 1-5
+    std::vector<T> attackCards;      // 1-10, or 1-15 adult HD mode 3 decimal
     int numDependentCards = 0;
     int numAttackCards = 0;
     
@@ -27,19 +30,20 @@ public:
     
     PlayerBase(std::string name) {
         this->name = name;
+        cash = 1000;
     }
     
-    PlayerBase(PlayerBase& player) {
+    PlayerBase(const PlayerBase& player) {
         *this = player;
-        
     }
     
-    virtual PlayerBase& operator=(PlayerBase& player) {
+    virtual PlayerBase& operator=(const PlayerBase& player) {
         this->name = player.name;
         this->cash = player.cash;
         this->numDependentCards = player.numDependentCards;
         this->numAttackCards = player.numAttackCards;
         this->dependentCards = player.dependentCards;
+        this->attackCards = player.attackCards;
         return *this;
     }
     
@@ -51,51 +55,81 @@ public:
         return name;
     }
     
-    bool addDependentCards(short numCards) {
+    void addDependentCards(short numCards) {
+
+        for (int i = 0; i < numCards; i++) {
+            addOneDependentCard();
+        }
+        std::cout<< "D cards for" << name << " ";
+        for (int i = 0; i < numCards; ++i) {
+            std::cout<< dependentCards.at(i) << " ";
+        }
         
-//        bool ret = false;
+    }
+    
+    void addOneDependentCard() {
         
-//        this->numDependentCards = numCards;
-//
-//        if (dependentCards != nullptr) {
-//            delete [] dependentCards;
-//            dependentCards = nullptr;
-//        }
-//
 //        srand(unsigned(time(0))); // seeding
-//
-//        this->dependentCards = new int[numCards];
-//
-//        for (int i = 0; i < numCards; i++) {
-//            this->dependentCards[i] = (rand()%5)+1;
-//        }
-        return true;
+        this->dependentCards.push_back((rand()%5)+1);
+        ++numDependentCards;
     }
-    bool addOneDependentCard(int&) {
-        return true;
+    
+    void addAttackCards(short numCards){
+        for (int i = 0; i < numCards; ++i) {
+            addOneAttackCards();
+        }
+        
+        std::cout<< "A cards for" << name << " ";
+        for (int i = 0; i < numCards; ++i) {
+            std::cout<< attackCards.at(i) << " ";
+        }
+        
+        std::cout << std::endl;
     }
+    virtual void addOneAttackCards() {
+        srand(unsigned(time(0))); // seeding
+        this->attackCards.push_back(T(rand()%15)+1);
+        ++numAttackCards;
+    }
+    
     int sumDependentCards() {
-        return 1;
-    }
-    bool addCash(double) {
-        return true;
+        return std::accumulate(dependentCards.cbegin(), dependentCards.cend(), 0);
     }
     
-    bool operator==(PlayerBase&) {
-        return true;
-    }
-    bool operator>(PlayerBase&){
-        return true;
-    }
-    bool operator<(PlayerBase&){
-        return true;
+    T sumAttackCards() {
+        return std::accumulate(attackCards.cbegin(), attackCards.cend(), 0);
+//        return static_cast<T>(3);
     }
     
-    void operator>>(double){
-        
+    T sumAllCards() {
+        return T(sumAttackCards() - sumDependentCards());
     }
-    void operator<<(double){
-        
+    
+    double getCash() { return this->cash; }
+    
+    void addCash(double cash) {
+        this->cash+=cash;
+    }
+    
+    bool hasGoneOver(const int& max){
+        return sumAllCards() > max;
+    }
+    
+    bool operator==(PlayerBase& other) {
+        return this->sumAllCards() == other.sumAllCards();
+    }
+    bool operator>(PlayerBase& other){
+        return this->sumAllCards() > other.sumAllCards();
+    }
+    bool operator<(PlayerBase& other){
+        return this->sumAllCards() < other.sumAllCards();
+    }
+    
+    void operator>>(double cash){
+        this->cash += cash;
+    }
+    void operator<<(double cash){
+        this->cash -= cash;
     }
   
     ~PlayerBase() {

@@ -12,17 +12,17 @@
 #include "PlayerYouth.h"
 #include "PlayerAdult.h"
 
-class PlayerManager {
+class GameManager {
   
     const int MAX = 21;
     static const int NUM = 2;
-    
+    double bet = 0;
 //    PlayerBase<int>* player[NUM];
-    PlayerBase<double>* player[NUM];
+    PlayerBase<double> *player[NUM];
     
-    bool gameOver;
-
-    PlayerManager();
+    bool gameOver = false;
+public:
+    GameManager();
     
     bool gameOn() {return !gameOver; }
     void endGame() { gameOver = true;}
@@ -36,4 +36,6 @@ class PlayerManager {
     void reportResult();
 };
 
+short GetShort();
+bool GetBoolFromYN();
 #endif /* PlayerManager_h */

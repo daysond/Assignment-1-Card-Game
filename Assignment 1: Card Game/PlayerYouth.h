@@ -12,38 +12,28 @@
 #include <vector>
 
 template<typename T>
-class PlayerYouth: public PlayerBase {
+class PlayerYouth: public PlayerBase<T> {
     
-    std::vector<T> attackCards;
-    
+
+//    
 public:
-    PlayerYouth() {
-        
-    }
-    PlayerYouth(std::string) {
-        
-    }
-    PlayerYouth(PlayerYouth&) {
-        
+    PlayerYouth() : PlayerBase<T>() {}
+    
+    PlayerYouth(std::string name) : PlayerBase<T>(name) {}
+    
+    PlayerYouth(const PlayerYouth& player) : PlayerBase<T>(player) {}
+    
+    PlayerYouth& operator=(const PlayerYouth& other) {
+        PlayerBase<T>::operator=(other);
+        return *this;
     }
     
-    PlayerYouth& operator=(PlayerYouth&) {
-        
+    void addOneAttackCards() {
+        srand(unsigned(time(0))); // seeding
+        this->attackCards.push_back(T((rand()%10)+1));
     }
     
-    bool addAttackCards(T*){
-        return true;
-    }
-    
-    bool addOneAttackCards(T*) {
-        return true;
-    }
-    
-    T sumAttackCards() {
-        
-        return static_cast<T>(3);
-    }
-    
+
     ~PlayerYouth() {
         
     }
