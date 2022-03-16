@@ -6,7 +6,7 @@
 //
 
 #include "GameManager.h"
-
+#include <iomanip>
 using namespace std;
 
 GameManager::GameManager() {
@@ -16,12 +16,25 @@ GameManager::GameManager() {
     
     //    player[0] = new PlayerYouth<int>("Noah");
     //    player[1] = new PlayerAdult<int>("Kenneth");
-    
-    gameOver = false;
+
 }
 
-//bool gameOn() {return !gameOver; }
-//void endGame() { gameOver = true;}
+void GameManager::gameStart() {
+    
+    do {
+
+        betMoney();
+        gameLogic();
+        reportPoints();
+        determineWinner();
+        reportCash();
+        updateGameState();
+        
+    } while (isGameOn());
+
+    reportResult();
+
+}
 
 void GameManager::betMoney() {
     
@@ -29,19 +42,19 @@ void GameManager::betMoney() {
     
     while(!(cin >> bet)) {
         
-        cout << "Invalid number."<<endl << "How much do you both want to bet? (min$10, max $300): ";
+        cout << endl << "Invalid number. How much do you both want to bet? (min$10, max $300): ";
         
         cin.clear();
         
         cin.ignore(1000, '\n');
     }
 
-    if(bet > 300) bet = 300;
+//    if(bet > 300) bet = 300;
     if(bet < 10) bet = 10;
     
     
 }
-void GameManager::gameStart() {
+void GameManager::gameLogic() {
     
     for(PlayerBase<double> *p: player ) {
         
@@ -60,46 +73,34 @@ void GameManager::gameStart() {
         cout<< "Do you want to add a attack card? [Y,N] ";
         if(GetBoolFromYN()) p->addOneAttackCards();
         sumCards(p);
-        
+        cout << endl;
         
     }
-    // Prompt the player for the number of dependent cards
-
-    // Prompt the player for the number of attack cards
-
-    // Report the player's name and the sum of the player's cards
-
-    // Ask the player if (s)he wishes to add a dependent card to the existing list of dependent cards
-
-    // Report the player's name and the sum of the player's cards
-
-    // Ask the player if (s)he wishes to add an attack card to the existing list of attack cards
-
-    // Report the player's name and the sum of the player's cards
-    
 }
+
 void GameManager::reportPoints(){
     //Report the name and points for each player
     for(PlayerBase<double> *p: player )
         cout<< p->getName() << " has " << p->sumAllCards() << " points." << endl;
     
+    cout<<endl;
 }
 void GameManager::determineWinner(){
     
     if (*player[0] == *player[1]) {
         //tie game, same points
-        cout<<" Both players have the same points. There's no winner." << endl;
+        cout<<"Both players have the same points. There's no winner." << endl;
         
-    } else if (player[0]->hasGoneOver(MAX) && player[1]->hasGoneOver(MAX)) {
+    } else if (player[0]->hasGoneOverLimit(MAX) && player[1]->hasGoneOverLimit(MAX)) {
         //both disqualified
         for(PlayerBase<double> *p: player ) {
             cout<< p->getName() << " has a sum of " << p->sumAllCards() << ", which is over the limit." << endl;
         }
-        cout<<" Both players are over the limit and have been disqualified. " << endl;
+        cout<<"Both players are over the limit and have been disqualified. " << endl;
         
     } else {
        
-        short winnerIndex;
+        short winnerIndex; // either 0 or 1, can be altered with ! operator.
         //both player has less than 21 points
         if(player[0]->sumAllCards() <= MAX && player[1]->sumAllCards() <= MAX) {
    
@@ -110,7 +111,7 @@ void GameManager::determineWinner(){
         } else { // one plaer has gone over limit, which means player with less point wins
             winnerIndex = player[0]->sumAllCards() < player[1]->sumAllCards() ? 0 : 1;
             
-            cout<< player[!winnerIndex]->getName() << " has a sum of 31.518, which is over the limit." << endl;
+            cout<< player[!winnerIndex]->getName() << " has a sum of "<< player[!winnerIndex]->sumAllCards() <<", which is over the limit." << endl;
             cout<< player[!winnerIndex]->getName() << " has been disqualified for going over the limit. "<< player[winnerIndex]->getName() << " has won." << endl;
         }
         
@@ -119,52 +120,31 @@ void GameManager::determineWinner(){
         
     }
     
-    //Determine a winner
-
-    // If a player has a sum over the limit of 21, the player is disqualified. Print the player's name,
-    // the sum of the player's cards, and a message that states this is over the limit.
-    // Apply this test to both players
-
-    // If both players are disqualified, print that both players are over the limit and have been disqualified.
-
-    // If just player 1 is disqualified, print player 1's name and a message that (s)he has been disqualified
-    // for going over the limit. Print player 2's name and indicate that (s)he has won.
-    // Move the amount that was bet away from player 1 and towards player 2 using the << and >> operators.
-
-    // If just player 2 is disqualified, print player 2's name and a message that (s)he has been disqualified
-    // for going over the limit. Print player 1's name and indicate that (s)he has won.
-    // Move the amount that was bet away from player 2 and towards player 1 using the << and >> operators.
-
-    // If player 1 and player 2 are tied, print that both players drew the same number of points and that
-    // there is no winner. In doing this comparison, use the == operator.
-
-    // If player 1 has more points than player 2, then print the name of player 1 and that (s)he has won.
-    // Move the amount that was bet away from player 2 and towards player 1 using the << and >> operators.
-    // In doing this comparison, use the > operator
-
-    // If player 2 has more points than player 1, then print the name of player 2 and that (s)he has won.
-    // Move the amount that was bet away from player 1 and towards player 2 using the << and >> operators.
-    // In doing this comparison, use the < operator
-
-    
+    cout << endl;
 }
-void GameManager::reportCash(){
+
+void GameManager::reportCash(bool rounding){
     //Report the name and cash for each
-    for(PlayerBase<double> *p: player )
+    for(PlayerBase<double> *p: player ) {
+        p->clearCards();
+        if (rounding) cout << fixed << setprecision(2);
         cout<< p->getName() << " has $" << p->getCash() << "." << endl;
+    }
+    cout<<endl;
 }
-void GameManager::shouldEndGame(){
-    // Determine whether it is time to quit by checking to see if one player has run out of cash.
-    gameOver = player[0]->getCash() < 0 || player[1]->getCash() < 0;
+
+void GameManager::updateGameState(){
+
+    gameOn = player[0]->getCash() > 0 && player[1]->getCash() > 0;
 }
+
 void GameManager::reportResult(){
-    
-    // Print out the final report for each player. Give the player's name and the player's cash.
     // Be sure to print the cash to two decimal places.
-    // Be sure to clean up before finishing the program.
     cout<<"The game is over." << endl;
-    reportCash();
+    reportCash(true);
 }
+
+// - MARK: HELPER FUNCTIONS
 
 //validate if the user has input an integer
 short GetShort() {

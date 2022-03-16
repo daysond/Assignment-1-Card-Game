@@ -29,7 +29,7 @@ public:
     }
     
     void addOneAttackCards() {
-        srand(unsigned(time(0))); // seeding
+   
         this->attackCards.push_back(T((rand()%10)+1));
     }
     

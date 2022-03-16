@@ -20,18 +20,12 @@ protected:
     double cash;
     std::vector<int> dependentCards; // list of dependent cards of value 1-5
     std::vector<T> attackCards;      // 1-10, or 1-15 adult HD mode 3 decimal
-    int numDependentCards = 0;
-    int numAttackCards = 0;
     
 public:
-    PlayerBase() {
-        cash = 1000;
-    }
     
-    PlayerBase(std::string name) {
-        this->name = name;
-        cash = 1000;
-    }
+    PlayerBase() : cash(1000) {}
+    
+    PlayerBase(std::string name) : name(name), cash(1000) {}
     
     PlayerBase(const PlayerBase& player) {
         *this = player;
@@ -40,8 +34,6 @@ public:
     virtual PlayerBase& operator=(const PlayerBase& player) {
         this->name = player.name;
         this->cash = player.cash;
-        this->numDependentCards = player.numDependentCards;
-        this->numAttackCards = player.numAttackCards;
         this->dependentCards = player.dependentCards;
         this->attackCards = player.attackCards;
         return *this;
@@ -51,45 +43,41 @@ public:
         this->name = name;
     }
     
-    std::string getName() {
-        return name;
-    }
+    std::string getName() { return name; }
     
     void addDependentCards(short numCards) {
-
+//        srand(unsigned(time(0)));
         for (int i = 0; i < numCards; i++) {
             addOneDependentCard();
         }
-        std::cout<< "D cards for" << name << " ";
-        for (int i = 0; i < numCards; ++i) {
-            std::cout<< dependentCards.at(i) << " ";
-        }
-        
+//        std::cout<< "D cards for " << name << " ";
+//        for (int i = 0; i < numCards; ++i) {
+//            std::cout<< dependentCards.at(i) << " ";
+//        }
+//        std::cout << std::endl;
     }
     
     void addOneDependentCard() {
-        
-//        srand(unsigned(time(0))); // seeding
         this->dependentCards.push_back((rand()%5)+1);
-        ++numDependentCards;
     }
     
     void addAttackCards(short numCards){
+//        srand(unsigned(time(0)));
         for (int i = 0; i < numCards; ++i) {
             addOneAttackCards();
         }
         
-        std::cout<< "A cards for" << name << " ";
+        std::cout<< "A cards for " << name << " ";
         for (int i = 0; i < numCards; ++i) {
             std::cout<< attackCards.at(i) << " ";
         }
-        
+
         std::cout << std::endl;
     }
+    
     virtual void addOneAttackCards() {
-        srand(unsigned(time(0))); // seeding
-        this->attackCards.push_back(T(rand()%15)+1);
-        ++numAttackCards;
+        this->attackCards.push_back(1 + (T)(rand()) / ((T)(RAND_MAX/(15 - 1))));
+//        this->attackCards.push_back((T)(rand()%15)+1);
     }
     
     int sumDependentCards() {
@@ -107,12 +95,13 @@ public:
     
     double getCash() { return this->cash; }
     
-    void addCash(double cash) {
-        this->cash+=cash;
-    }
+    void addCash(double cash) { this->cash+=cash; }
     
-    bool hasGoneOver(const int& max){
-        return sumAllCards() > max;
+    bool hasGoneOverLimit(const int& max){  return sumAllCards() > max; }
+    
+    void clearCards() {
+        dependentCards.clear();
+        attackCards.clear();
     }
     
     bool operator==(PlayerBase& other) {
@@ -125,16 +114,11 @@ public:
         return this->sumAllCards() < other.sumAllCards();
     }
     
-    void operator>>(double cash){
-        this->cash += cash;
-    }
-    void operator<<(double cash){
-        this->cash -= cash;
-    }
+    void operator>>(double cash){   this->cash += cash; }
+    void operator<<(double cash){   this->cash -= cash; }
   
-    ~PlayerBase() {
-        
-    }
+    ~PlayerBase() {}
+    
 };
 
 #endif /* Player_h */

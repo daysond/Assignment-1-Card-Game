@@ -20,22 +20,23 @@ class GameManager {
 //    PlayerBase<int>* player[NUM];
     PlayerBase<double> *player[NUM];
     
-    bool gameOver = false;
-public:
-    GameManager();
-    
-    bool gameOn() {return !gameOver; }
-    void endGame() { gameOver = true;}
-    
+    bool gameOn = true;
     void betMoney();
-    void gameStart();
+    void gameLogic();
     void reportPoints();
     void determineWinner();
-    void reportCash();
-    void shouldEndGame();
+    void reportCash(bool rounding = false);
+    void updateGameState();
     void reportResult();
+    
+public:
+    GameManager();
+    void gameStart();
+    bool isGameOn() { return gameOn; }
+    
 };
 
+// - MARK: HELPER FUNCTIONS
 short GetShort();
 bool GetBoolFromYN();
 #endif /* PlayerManager_h */
