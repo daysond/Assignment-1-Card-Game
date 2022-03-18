@@ -1,7 +1,7 @@
 //PlayerMain.cpp - main program for the card player
 
 #include<iostream>
-#include "GameManager.h"
+#include "GameManagerAdapter.h"
 
 using namespace std;
 

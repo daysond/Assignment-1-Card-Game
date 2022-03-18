@@ -9,7 +9,6 @@
 #define YouthPlayer_h
 
 #include "PlayerBase.h"
-#include <vector>
 
 template<typename T>
 class PlayerYouth: public PlayerBase<T> {

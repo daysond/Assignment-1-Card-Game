@@ -11,7 +11,6 @@
 #include <iostream>
 #include <vector>
 #include <numeric>
-#include <time.h>
 
 template<typename T>
 class PlayerBase {
@@ -95,8 +94,6 @@ public:
     T sumAllCards() const {
         return T(sumAttackCards() - sumDependentCards());
     }
-    
-
     
     bool hasGoneOverLimit(const int& max) const {  return sumAllCards() > max; }
     

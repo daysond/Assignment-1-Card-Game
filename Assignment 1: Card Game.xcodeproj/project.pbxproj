@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED5E8D9727E5125A00E52D55 /* GameManagerAdapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5E8D9627E5125A00E52D55 /* GameManagerAdapter.cpp */; };
 		EDFB3F5727E19BB7009405E7 /* PlayerMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDFB3F5627E19BB7009405E7 /* PlayerMain.cpp */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		ED03EA6027C4886000187682 /* PlayerYouth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerYouth.h; sourceTree = "<group>"; };
 		ED03EA6327C48ADA00187682 /* PlayerAdult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerAdult.h; sourceTree = "<group>"; };
 		ED03EA6727C5ECF800187682 /* GameManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
+		ED5E8D9627E5125A00E52D55 /* GameManagerAdapter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameManagerAdapter.cpp; sourceTree = "<group>"; };
 		EDD1B32C27E4F67B00D89613 /* GameManagerAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameManagerAdapter.h; sourceTree = "<group>"; };
 		EDD1B32E27E5026F00D89613 /* HelperFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelperFunctions.h; sourceTree = "<group>"; };
 		EDFB3F5627E19BB7009405E7 /* PlayerMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerMain.cpp; sourceTree = "<group>"; };
@@ -67,8 +69,9 @@
 				ED03EA6027C4886000187682 /* PlayerYouth.h */,
 				ED03EA6327C48ADA00187682 /* PlayerAdult.h */,
 				ED03EA6727C5ECF800187682 /* GameManager.h */,
-				EDD1B32E27E5026F00D89613 /* HelperFunctions.h */,
 				EDD1B32C27E4F67B00D89613 /* GameManagerAdapter.h */,
+				ED5E8D9627E5125A00E52D55 /* GameManagerAdapter.cpp */,
+				EDD1B32E27E5026F00D89613 /* HelperFunctions.h */,
 				EDFB3F5627E19BB7009405E7 /* PlayerMain.cpp */,
 			);
 			path = "Assignment 1: Card Game";
@@ -132,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDFB3F5727E19BB7009405E7 /* PlayerMain.cpp in Sources */,
+				ED5E8D9727E5125A00E52D55 /* GameManagerAdapter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

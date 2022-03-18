@@ -26,6 +26,41 @@ class GameManager: public GameManagerAdapter {
     GameMode mode;
     PlayerBase<T>* player[NUM];
     
+public:
+    
+    GameManager(){
+        player[0] = new PlayerYouth<T>("Noah");
+        player[1] = new PlayerAdult<T>("Kenneth");
+        
+    }
+    
+    //game procedure
+    void gameStart() {
+        
+        do {
+            
+            betMoney();
+            gameLogic();
+            reportPoints();
+            determineWinner();
+            reportCash();
+            updateGameState();
+            
+        } while (gameOn);
+        
+        reportResult();
+        
+    }
+    
+    ~GameManager() {
+        for(PlayerBase<T> *p: player) {
+            delete p;
+            p = nullptr;
+        }
+    }
+    
+private:
+    
     void setMode(GameMode mode) {
         this->mode = mode;
     }
@@ -48,6 +83,7 @@ class GameManager: public GameManagerAdapter {
         
         
     }
+    
     void gameLogic() {
         
         for(PlayerBase<T> *p: player ) {
@@ -145,61 +181,8 @@ class GameManager: public GameManagerAdapter {
         reportCash(true); // round to 2 decimals
     }
     
-public:
-    
-    GameManager(){
-        player[0] = new PlayerYouth<T>("Noah");
-        player[1] = new PlayerAdult<T>("Kenneth");
-        
-    }
-    
-    //game procedure
-    void gameStart() {
-        
-        do {
-            
-            betMoney();
-            gameLogic();
-            reportPoints();
-            determineWinner();
-            reportCash();
-            updateGameState();
-            
-        } while (gameOn);
-        
-        reportResult();
-        
-    }
-    
-    ~GameManager() {
-        for(PlayerBase<T> *p: player) {
-            delete p;
-            p = nullptr;
-        }
-    }
 
 };
-
-// - MARK: HELPER FUNCTIONS
-
-GameManagerAdapter* gameManager() {
-    
-    std::cout << "Would you like to play in High-Definition Mode? [Y/N]: ";
-    GameMode mode = GetBoolFromYN() ? HD : Regular;
-    std::cout << std::endl;
-    
-    GameManagerAdapter*  gm;
-    
-    if(mode == HD)
-        gm = new GameManager<double>();
-    else
-        gm = new GameManager<int>();
-    
-    gm->setMode(mode);
-    
-    return gm;
-}
-
 
 
 #endif /* PlayerManager_h */
