@@ -13,7 +13,6 @@
 template<typename T>
 class PlayerAdult: public PlayerBase<T> {
     
-//    std::vector<T> attackCards;
     
 public:
     
@@ -25,29 +24,10 @@ public:
     
     PlayerAdult& operator=(PlayerAdult& other) {
         PlayerBase<T>::operator=(other);
-//        attackCards = other.attackCards;
         return *this;
-        
     }
     
-//    bool addAttackCards(short numCards) {
-//        for (int i = 0; i < numCards; ++i) {
-//            addOneAttackCards();
-//        }
-//    }
-//
-//    bool addOneAttackCards() {
-//        srand(unsigned(time(0))); // seeding
-//        this->attackCards.push_back(T((rand()%15)+1));
-//    }
-//
-//    T sumAttackCards() {
-//        return std::accumulate(attackCards.cbegin(), attackCards.cend(), 0);
-//    }
-//
-    ~PlayerAdult() {
-        
-    }
+    ~PlayerAdult() { }
     
 };
 

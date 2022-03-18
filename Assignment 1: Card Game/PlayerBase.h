@@ -12,12 +12,15 @@
 #include <vector>
 #include <numeric>
 #include <time.h>
+
 template<typename T>
 class PlayerBase {
     
 protected:
+    
     std::string name;
     double cash;
+    const int maxPoint = 15;
     std::vector<int> dependentCards; // list of dependent cards of value 1-5
     std::vector<T> attackCards;      // 1-10, or 1-15 adult HD mode 3 decimal
     
@@ -39,11 +42,17 @@ public:
         return *this;
     }
     
-    void setName(std::string name) {
-        this->name = name;
-    }
+    void setName(std::string name) { this->name = name; }
     
-    std::string getName() { return name; }
+    std::string getName() const { return name; }
+    
+    void addCash(double cash) { this->cash+=cash; }
+    
+    double getCash() const { return this->cash; }
+
+    void addOneDependentCard() {
+        this->dependentCards.push_back((rand()%5)+1);
+    }
     
     void addDependentCards(short numCards) {
 //        srand(unsigned(time(0)));
@@ -57,91 +66,62 @@ public:
 //        std::cout << std::endl;
     }
     
-    void addOneDependentCard() {
-        this->dependentCards.push_back((rand()%5)+1);
+    virtual void addOneAttackCard() {
+        this->attackCards.push_back(1 + (T)(rand()) / ((T)(RAND_MAX/(maxPoint - 1))));
     }
     
     void addAttackCards(short numCards){
 //        srand(unsigned(time(0)));
         for (int i = 0; i < numCards; ++i) {
-            addOneAttackCards();
+            addOneAttackCard();
         }
         
-        std::cout<< "A cards for " << name << " ";
-        for (int i = 0; i < numCards; ++i) {
-            std::cout<< attackCards.at(i) << " ";
-        }
-
-        std::cout << std::endl;
+//        std::cout<< "A cards for " << name << " ";
+//        for (int i = 0; i < numCards; ++i) {
+//            std::cout<< attackCards.at(i) << " ";
+//        }
+//
+//        std::cout << std::endl;
     }
     
-    virtual void addOneAttackCards() {
-        this->attackCards.push_back(1 + (T)(rand()) / ((T)(RAND_MAX/(15 - 1))));
-//        this->attackCards.push_back((T)(rand()%15)+1);
-    }
-    
-    int sumDependentCards() {
+    int sumDependentCards() const {
         return std::accumulate(dependentCards.cbegin(), dependentCards.cend(), 0);
     }
     
-    T sumAttackCards() {
-        return std::accumulate(attackCards.cbegin(), attackCards.cend(), 0);
-//        return static_cast<T>(3);
+    T sumAttackCards() const {
+        return std::accumulate(attackCards.cbegin(), attackCards.cend(), T(0));
     }
     
-    T sumAllCards() {
+    T sumAllCards() const {
         return T(sumAttackCards() - sumDependentCards());
     }
     
-    double getCash() { return this->cash; }
+
     
-    void addCash(double cash) { this->cash+=cash; }
-    
-    bool hasGoneOverLimit(const int& max){  return sumAllCards() > max; }
+    bool hasGoneOverLimit(const int& max) const {  return sumAllCards() > max; }
     
     void clearCards() {
         dependentCards.clear();
         attackCards.clear();
     }
     
-    bool operator==(PlayerBase& other) {
+    bool operator==(const PlayerBase& other) const {
         return this->sumAllCards() == other.sumAllCards();
     }
-    bool operator>(PlayerBase& other){
+    bool operator>(const PlayerBase& other) const{
         return this->sumAllCards() > other.sumAllCards();
     }
-    bool operator<(PlayerBase& other){
+    bool operator<(const PlayerBase& other) const{
         return this->sumAllCards() < other.sumAllCards();
     }
     
-    void operator>>(double cash){   this->cash += cash; }
-    void operator<<(double cash){   this->cash -= cash; }
+    void operator>>(double cash){ this->cash += cash; }
+    void operator<<(double cash){ this->cash -= cash; }
   
     ~PlayerBase() {}
     
 };
 
+
 #endif /* Player_h */
 
-//PlayerBase();
-//PlayerBase(std::string);
-//PlayerBase(PlayerBase&);
-//
-//virtual PlayerBase& operator=(PlayerBase&);
-//
-//bool setName(std::string);
-//std::string getName();
-//
-//bool addDependentCards(int*);
-//bool addOneDependentCard(int&);
-//int sumDependentCards();
-//bool addCash(double);
-//
-//bool operator==(PlayerBase&);
-//bool operator>(PlayerBase&);
-//bool operator<(PlayerBase&);
-//
-//void operator>>(double);
-//void operator<<(double);
-//
-//~PlayerBase();

@@ -14,8 +14,8 @@
 template<typename T>
 class PlayerYouth: public PlayerBase<T> {
     
-
-//    
+    const int maxPoint = 10; // max point of an attack card
+    
 public:
     PlayerYouth() : PlayerBase<T>() {}
     
@@ -28,16 +28,13 @@ public:
         return *this;
     }
     
-    void addOneAttackCards() {
-   
-        this->attackCards.push_back(T((rand()%10)+1));
+    void addOneAttackCard() {
+        this->attackCards.push_back(1 + (T)(rand()) / ((T)(RAND_MAX/(maxPoint - 1))));
     }
     
 
-    ~PlayerYouth() {
-        
-    }
-    
+    ~PlayerYouth() { }
+
 };
 
 #endif /* YouthPlayer_h */
