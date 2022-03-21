@@ -2,12 +2,13 @@
 //  GameManagerAdapter.cpp
 //  Assignment 1: Card Game
 //
-//  Created by Dayson Dong on 2022-03-18.
-//
+//  Created by Yiyuan Dong on 2022-03-18.
+//  Student ID: 065-182-131
+
 
 #include "GameManager.h"
 
-GameManagerAdapter* gameManager() {
+GameManagerAdapter* CreateGame() {
     
     std::cout << "Would you like to play in High-Definition Mode? [Y/N]: ";
     GameMode mode = GetBoolFromYN() ? HD : Regular;
@@ -24,3 +25,4 @@ GameManagerAdapter* gameManager() {
     
     return gm;
 }
+

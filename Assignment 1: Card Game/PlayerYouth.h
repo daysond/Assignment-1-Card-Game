@@ -2,8 +2,8 @@
 //  YouthPlayer.h
 //  Assignment 1: Card Game
 //
-//  Created by Dayson Dong on 2022-02-21.
-//
+//  Created by Yiyuan Dong on 2022-02-21.
+//  Student ID: 065-182-131
 
 #ifndef YouthPlayer_h
 #define YouthPlayer_h
@@ -28,7 +28,9 @@ public:
     }
     
     void addOneAttackCard() {
+        
         this->attackCards.push_back(1 + (T)(rand()) / ((T)(RAND_MAX/(maxPoint - 1))));
+        
     }
     
 

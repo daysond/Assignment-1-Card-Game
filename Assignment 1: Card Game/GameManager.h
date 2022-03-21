@@ -2,8 +2,8 @@
 //  GameManager.h
 //  Assignment 1: Card Game
 //
-//  Created by Dayson Dong on 2022-02-22.
-//
+//  Created by Yiyuan Dong on 2022-02-22.
+//  Student ID: 065-182-131
 
 #ifndef PlayerManager_h
 #define PlayerManager_h
@@ -19,8 +19,8 @@
 template<typename T>
 class GameManager: public GameManagerAdapter {
     
-    const int MAX = 21;
-    static const int NUM = 2;
+    const int MAX = 21; // max point
+    static const int NUM = 2; // num of players
     double bet = 0;
     bool gameOn = true;
     GameMode mode;
@@ -31,7 +31,6 @@ public:
     GameManager(){
         player[0] = new PlayerYouth<T>("Noah");
         player[1] = new PlayerAdult<T>("Kenneth");
-        
     }
     
     //game procedure
@@ -61,9 +60,7 @@ public:
     
 private:
     
-    void setMode(GameMode mode) {
-        this->mode = mode;
-    }
+    void setMode(GameMode mode) { this->mode = mode; }
     
     void betMoney() {
         
@@ -81,16 +78,15 @@ private:
         if(bet > 300) bet = 300;
         if(bet < 10) bet = 10;
         
-        
     }
     
-    void gameLogic() {
+    void gameLogic() const {
+        
+        auto sumCards = [this](PlayerBase<T>* player) {
+            std::cout << std::fixed << std::setprecision(this->mode) << player->getName() << ", the sum of your cards is " << player->sumAllCards() << std::endl;
+        };
         
         for(PlayerBase<T> *p: player ) {
-            
-            auto sumCards = [this](PlayerBase<T>* player) {
-                std::cout << std::fixed << std::setprecision(this->mode) << player->getName() << ", the sum of your cards is " << player->sumAllCards() << std::endl;
-            };
             
             std::cout<<std::endl<< p->getName() << ", how many dependent cards to you want? ";
             p->addDependentCards(GetShort());
@@ -113,7 +109,7 @@ private:
     }
     
     void reportPoints() const {
-        //Report the name and points for each player
+    
         for(PlayerBase<T> *p: player )
             std::cout << std::fixed << std::setprecision(this->mode) << p->getName() << " has " << p->sumAllCards() << " points." << std::endl;
         
@@ -123,13 +119,13 @@ private:
     void determineWinner() const {
         
         if (*player[0] == *player[1]) {
-            //tie game, same points
+            //Tie game, same points
             std::cout<<"Both players have the same points. There's no winner." << std::endl;
             
-        } else if (player[0]->hasGoneOverLimit(MAX) && player[1]->hasGoneOverLimit(MAX)) {
-            //both player gone over limit, both disqualified
+        } else if (player[0]->isOverLimit(MAX) && player[1]->isOverLimit(MAX)) {
+            //Both player gone over limit, both disqualified
             for(PlayerBase<T> *p: player ) {
-                std::cout << std::fixed << std::setprecision(this->mode)
+                std::cout << std::fixed << std::setprecision(this->mode) //value of mode is precision of decimal places
                 << p->getName() << " has a sum of " << p->sumAllCards() << ", which is over the limit." << std::endl;
             }
             std::cout<<"Both players are over the limit and have been disqualified. " << std::endl;
@@ -138,14 +134,14 @@ private:
             
             short winnerIndex; // either 0 or 1, can be altered with ! operator.
             
-            //both player has less than 21 points
+            //Both player has less than 21 points
             if(player[0]->sumAllCards() <= MAX && player[1]->sumAllCards() <= MAX) {
                 
                 winnerIndex = player[0]->sumAllCards() > player[1]->sumAllCards() ? 0 : 1;
                 
                 std::cout << player[winnerIndex]->getName()<< " has won!" << std::endl;
                 
-            } else { // one player has gone over limit, which means player with less point wins
+            } else { // One player has gone over limit, which means player with less point wins
                 
                 winnerIndex = player[0]->sumAllCards() < player[1]->sumAllCards() ? 0 : 1;
                 
@@ -154,7 +150,7 @@ private:
                 std::cout<< player[!winnerIndex]->getName() << " has been disqualified for going over the limit. "<< player[winnerIndex]->getName() << " has won." << std::endl;
             }
             
-            *player[winnerIndex] >> bet; // adds cash
+            *player[winnerIndex] >> bet; // add cash
             *player[!winnerIndex] << bet; // remove cash
             
         }
@@ -162,16 +158,22 @@ private:
         std::cout << std::endl;
     }
     
+    //Rounding: if true, round to 2 decimal places, used in final report
     void reportCash(bool rounding = false) const {
-        //Report the name and cash for each
+        
         for(PlayerBase<T> *p: player ) {
-            p->clearCards(); // delete cards, start anew.
+            
+            p->clearCards(); // delete cards, start a new round
+            
             if (rounding) std::cout << std::fixed << std::setprecision(2);
+            
             std::cout<< p->getName() << " has $" << p->getCash() << "." << std::endl;
+            
         }
         std::cout<<std::endl;
     }
     
+    //Checks if game is over (either player is out of cash)
     void updateGameState() {
         gameOn = player[0]->getCash() > 0 && player[1]->getCash() > 0;
     }
@@ -181,7 +183,6 @@ private:
         reportCash(true); // round to 2 decimals
     }
     
-
 };
 
 

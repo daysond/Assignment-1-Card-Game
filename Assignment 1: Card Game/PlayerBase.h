@@ -2,8 +2,8 @@
 //  Player.h
 //  Assignment 1: Card Game
 //
-//  Created by Dayson Dong on 2022-02-21.
-//
+//  Created by Yiyuan Dong on 2022-02-21.
+//  Student ID: 065-182-131
 
 #ifndef Player_h
 #define Player_h
@@ -50,52 +50,48 @@ public:
     double getCash() const { return this->cash; }
 
     void addOneDependentCard() {
+        
         this->dependentCards.push_back((rand()%5)+1);
+        
     }
     
     void addDependentCards(short numCards) {
-//        srand(unsigned(time(0)));
-        for (int i = 0; i < numCards; i++) {
-            addOneDependentCard();
-        }
-//        std::cout<< "D cards for " << name << " ";
-//        for (int i = 0; i < numCards; ++i) {
-//            std::cout<< dependentCards.at(i) << " ";
-//        }
-//        std::cout << std::endl;
+
+        for (int i = 0; i < numCards; i++)  addOneDependentCard();
+        
     }
     
     virtual void addOneAttackCard() {
+        
         this->attackCards.push_back(1 + (T)(rand()) / ((T)(RAND_MAX/(maxPoint - 1))));
+        
     }
     
     void addAttackCards(short numCards){
-//        srand(unsigned(time(0)));
-        for (int i = 0; i < numCards; ++i) {
-            addOneAttackCard();
-        }
+       
+        for (int i = 0; i < numCards; ++i)  addOneAttackCard();
         
-//        std::cout<< "A cards for " << name << " ";
-//        for (int i = 0; i < numCards; ++i) {
-//            std::cout<< attackCards.at(i) << " ";
-//        }
-//
-//        std::cout << std::endl;
     }
     
     int sumDependentCards() const {
+        
         return std::accumulate(dependentCards.cbegin(), dependentCards.cend(), 0);
+        
     }
     
     T sumAttackCards() const {
+        
         return std::accumulate(attackCards.cbegin(), attackCards.cend(), T(0));
+        
     }
     
     T sumAllCards() const {
+        
         return T(sumAttackCards() - sumDependentCards());
+        
     }
     
-    bool hasGoneOverLimit(const int& max) const {  return sumAllCards() > max; }
+    bool isOverLimit(const int& max) const {  return sumAllCards() > max; }
     
     void clearCards() {
         dependentCards.clear();

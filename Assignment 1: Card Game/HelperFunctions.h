@@ -2,12 +2,14 @@
 //  HelperFunctions.h
 //  Assignment 1: Card Game
 //
-//  Created by Dayson Dong on 2022-03-18.
-//
+//  Created by Yiyuan Dong on 2022-03-18.
+//  Student ID: 065-182-131
 
 #ifndef HelperFunctions_h
 #define HelperFunctions_h
 
+#include <iostream>
+#include <string>
 //validate if the user has input an integer
 short GetShort() {
     

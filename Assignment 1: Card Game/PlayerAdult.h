@@ -2,8 +2,8 @@
 //  AdultPlayer.h
 //  Assignment 1: Card Game
 //
-//  Created by Dayson Dong on 2022-02-21.
-//
+//  Created by Yiyuan Dong on 2022-02-21.
+//  Student ID: 065-182-131
 
 #ifndef AdultPlayer_h
 #define AdultPlayer_h
@@ -12,7 +12,6 @@
 
 template<typename T>
 class PlayerAdult: public PlayerBase<T> {
-    
     
 public:
     

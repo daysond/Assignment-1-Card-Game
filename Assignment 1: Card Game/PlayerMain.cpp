@@ -1,4 +1,6 @@
 //PlayerMain.cpp - main program for the card player
+//  Modified by Yiyuan Dong 2022-03-18.
+//  Student ID: 065-182-131
 
 #include<iostream>
 #include "GameManagerAdapter.h"
@@ -7,11 +9,11 @@ using namespace std;
 
 int main(void) {
     
-    GameManagerAdapter* gm = gameManager();
+    GameManagerAdapter* gameManager = CreateGame();
 
-    gm->gameStart();
+    gameManager->gameStart();
 
-    delete gm;
+    delete gameManager;
 
     return 0;
 }
