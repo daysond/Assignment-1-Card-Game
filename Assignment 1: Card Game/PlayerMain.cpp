@@ -17,3 +17,19 @@ int main(void) {
 
     return 0;
 }
+
+/*
+In the main() function, the number of players is hardcoded to 2. How could we modify the main() function to let the players decide how many players there are? (0.5 mark)
+ 
+ 
+ 
+For this product, compare and contrast polymorphism via the use of inheritance with parametric polymorphism. (1 mark)
+ 
+ 
+ 
+If we wished to add a nice graphical interface to this program, how would we do it? With C++? By interacting with another program? By adding a library? By using a different language entirely? (0.5 mark)
+ 
+ 
+ 
+ 
+*/
