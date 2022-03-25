@@ -23,6 +23,7 @@ GameManagerAdapter* CreateGame() {
     
     gm->setMode(mode);
     
+    
     return gm;
 }
 

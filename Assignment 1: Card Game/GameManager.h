@@ -24,13 +24,40 @@ class GameManager: public GameManagerAdapter {
     double bet = 0;
     bool gameOn = true;
     GameMode mode;
-    PlayerBase<T>* player[NUM];
+    PlayerBase<T>** player;
+    int numPlayer = 0;
+//    std::vector<PlayerBase<T>*> players;
     
 public:
     
     GameManager(){
-        player[0] = new PlayerYouth<T>("Noah");
-        player[1] = new PlayerAdult<T>("Kenneth");
+        
+        numPlayer = GetShort();
+        player = new PlayerBase<T>*[numPlayer]();
+        std::string name = "";
+        for(int i = 0; i < numPlayer; i++) {
+            std::cout << "Enter the name: ";
+            std::getline(std::cin, name);
+            std::cout << "Are you youth? [Y/N]: ";
+            
+            PlayerBase<T>* p = CreatePlayer(GetBoolFromYN(), name);
+            player[i] = p;
+            
+//            players.push_back( CreatePlayer(GetBoolFromYN(), name));
+        }
+        
+        
+//        player[0] = new PlayerYouth<T>("Noah");
+//        player[1] = new PlayerAdult<T>("Kenneth");
+    }
+    
+    
+    PlayerBase<T>* CreatePlayer(bool youth, std::string name) {
+
+        
+            return youth ? PlayerYouth<T>(name) : PlayerAdult<T>(name);
+      
+        
     }
     
     //game procedure
@@ -52,10 +79,19 @@ public:
     }
     
     ~GameManager() {
-        for(PlayerBase<T> *p: player) {
-            delete p;
-            p = nullptr;
+        
+        for(int i = 0; i < numPlayer; i++) {
+            
+            delete player[i];
+            
         }
+        
+        delete player;
+        
+//        for(PlayerBase<T> *p: player) {
+//            delete p;
+//            p = nullptr;
+//        }
     }
     
 private:
@@ -86,7 +122,10 @@ private:
             std::cout << std::fixed << std::setprecision(this->mode) << player->getName() << ", the sum of your cards is " << player->sumAllCards() << std::endl;
         };
         
-        for(PlayerBase<T> *p: player ) {
+//        for(PlayerBase<T> *p: player ) {
+        for(int i = 0; i < numPlayer; i++) {
+            
+            PlayerBase<T>* p = player[i];
             
             std::cout<<std::endl<< p->getName() << ", how many dependent cards to you want? ";
             p->addDependentCards(GetShort());
@@ -110,9 +149,12 @@ private:
     
     void reportPoints() const {
     
-        for(PlayerBase<T> *p: player )
+//        for(PlayerBase<T> *p: player )
+        for(int i = 0; i < numPlayer; i++) {
+            
+            PlayerBase<T>* p = player[i];
             std::cout << std::fixed << std::setprecision(this->mode) << p->getName() << " has " << p->sumAllCards() << " points." << std::endl;
-        
+        }
         std::cout<<std::endl;
     }
     
@@ -124,7 +166,10 @@ private:
             
         } else if (player[0]->isOverLimit(MAX) && player[1]->isOverLimit(MAX)) {
             //Both player gone over limit, both disqualified
-            for(PlayerBase<T> *p: player ) {
+//            for(PlayerBase<T> *p: player ) {
+            for(int i = 0; i < numPlayer; i++) {
+                
+                PlayerBase<T>* p = player[i];
                 std::cout << std::fixed << std::setprecision(this->mode) //value of mode is precision of decimal places
                 << p->getName() << " has a sum of " << p->sumAllCards() << ", which is over the limit." << std::endl;
             }
@@ -161,7 +206,10 @@ private:
     //Rounding: if true, round to 2 decimal places, used in final report
     void reportCash(bool rounding = false) const {
         
-        for(PlayerBase<T> *p: player ) {
+//        for(PlayerBase<T> *p: player ) {
+        for(int i = 0; i < numPlayer; i++) {
+            
+            PlayerBase<T>* p = player[i];
             
             p->clearCards(); // delete cards, start a new round
             
