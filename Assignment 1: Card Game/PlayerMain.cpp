@@ -53,7 +53,9 @@ int main(void) {
   
   In conclusion, Inclusion allows PlayerAdult<>, PlayerYouth<> and PlayerBase<> to have same behavior definition and different implementation while Parametric Polumorphism allows PlayerBase<int> and PlayerBase<double>, PlayerAdult<int> and PlayerAdult<double> etc. to have the same implementation logic even if the class types are different.
   
-  
+ In addition, in this product, inclusion and parametric are used together to increase code reusability and allow the class type selection during runtime (GameManagerAdapter enables the creation and use of different GameManager concrete types, so different types of Players can be created accordingly during runtime ).
+ 
+ 
  If we wished to add a nice graphical interface to this program, how would we do it? With C++? By interacting with another program? By adding a library? By using a different language entirely? (0.5 mark)
   
   1. We could use the UI Libraries - C++ User Interface Boost library.
