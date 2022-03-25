@@ -21,6 +21,19 @@ int main(void) {
 /*
 In the main() function, the number of players is hardcoded to 2. How could we modify the main() function to let the players decide how many players there are? (0.5 mark)
  
+ In my case, I would need to changed use PlayerBase<T>** player;  instead of PlayerBase<T>* player[2];
+ 
+ Next, a factory method to create PlayerBase pointers
+ 
+ PlayerBase<T>* CreatePlayer(bool youth, std::string name) {
+
+    return youth ? PlayerYouth<T>(name) : PlayerAdult<T>(name);
+ 
+ }
+ 
+ The factory method would be called when the GameManager object is initialized.
+ 
+ Also a member variable of numPlayer is needed to keep track of the number of players.
  
  
 For this product, compare and contrast polymorphism via the use of inheritance with parametric polymorphism. (1 mark)
